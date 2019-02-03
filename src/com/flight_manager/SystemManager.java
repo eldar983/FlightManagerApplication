@@ -1,12 +1,13 @@
 package com.flight_manager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SystemManager {
 	
-	private List<Airport> listOfAirports;
-	private List<Flight> listOfFlights;
-	private List<Airline> listOfAirlines;
+	private ArrayList<Airport> listOfAirports = new ArrayList<Airport>();
+	private ArrayList<Flight> listOfFlights = new ArrayList<Flight>();
+	private ArrayList<Airline> listOfAirlines = new ArrayList<Airline>();
 	
 	public Airport createAirport(String name) {
 		// TODO Implement
@@ -38,16 +39,30 @@ public class SystemManager {
 		return false;
 	}
 	
+	public boolean verifyAirportName(String name) {
+		boolean validName = false;
+		for(int i = 0; i < name.length(); i++) {
+			char ch = name.charAt(i);
+			if(Character.isLetter(ch) && name.length() == 3) {
+				validName = true;
+			}else {
+				System.out.println("Ime mora imati tacno 3 slova!");
+				return false;
+			}
+		}
+		return validName;
+	}
 	
-	public List<Airport> getListOfAirports() {
+	
+	public ArrayList<Airport> getListOfAirports() {
 		return listOfAirports;
 	}
 
-	public List<Flight> getListOfFlights() {
+	public ArrayList<Flight> getListOfFlights() {
 		return listOfFlights;
 	}
 
-	public List<Airline> getListOfAirlines() {
+	public ArrayList<Airline> getListOfAirlines() {
 		return listOfAirlines;
 	}
 }
