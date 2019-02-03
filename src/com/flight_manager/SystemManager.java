@@ -11,6 +11,7 @@ public class SystemManager {
 	
 	public Airport createAirport(String name) {
 		// TODO Implement
+	
 		return null;
 	}
 	
@@ -51,6 +52,19 @@ public class SystemManager {
 			}
 		}
 		return validName;
+	}
+	
+	public boolean isAirportNameUnique(String name) {
+		boolean uniqueName = true;
+		for(int i = 0; i < listOfAirports.size(); i++) {
+			if(listOfAirports.get(i).getName().equals(name)) {
+				System.out.println("Ime koje ste unijeli vec postoji!");
+				uniqueName = false;
+			}else {
+				uniqueName = true;
+			}
+		}
+		return uniqueName;
 	}
 	
 	

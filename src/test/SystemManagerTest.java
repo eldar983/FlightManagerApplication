@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.flight_manager.SystemManager;
+import com.flight_manager.*;
 
 public class SystemManagerTest {
 
@@ -31,6 +32,18 @@ public class SystemManagerTest {
 	@Test
 	public void shouldReturnFalseIfAirportNameContainsCharsOtherThanLetters() {
 		assertFalse(test.verifyAirportName("A2B"));
+	}
+	
+	@Test
+	public void shouldReturnTrueIfAirportNameDoesNotExistsAlready() {
+		test.getListOfAirports().add(new Airport("DXB"));
+		assertTrue(test.isAirportNameUnique("TUZ"));	
+	}
+	
+	@Test
+	public void shouldReturnFalseIfAirportNameAlreadyExists() {
+		test.getListOfAirports().add(new Airport("DXB"));
+		assertFalse(test.isAirportNameUnique("DXB"));
 	}
 
 }
