@@ -11,7 +11,12 @@ public class SystemManager {
 	
 	public Airport createAirport(String name) {
 		// TODO Implement
-	
+		if(isAirportNameUnique(name) && verifyAirportName(name)) {
+			Airport airport = new Airport(name);
+			listOfAirports.add(airport);
+			return airport;
+		}else {
+		}
 		return null;
 	}
 	

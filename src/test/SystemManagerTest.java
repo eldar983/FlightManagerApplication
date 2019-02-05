@@ -1,6 +1,8 @@
 package test;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
@@ -45,5 +47,19 @@ public class SystemManagerTest {
 		test.getListOfAirports().add(new Airport("DXB"));
 		assertFalse(test.isAirportNameUnique("DXB"));
 	}
+	@Test
+	public void shouldCreateCreateAirportObjectWhenAllConditionsAreMet() {
+		assertNotNull(test.createAirport("TUZ"));
+	}
+	@Test
+	public void shouldFailCreatingAirportObjectWhenNameVerificationFails() {
+		assertNull(test.createAirport("T2Z"));
+	}
+	@Test
+	public void shouldFailCreatingAirportObjectWhenObjectAlreadyExists() {
+		test.getListOfAirports().add(new Airport("TUZ"));
+		assertNull(test.createAirport("TUZ"));
+	}
+	
 
 }
