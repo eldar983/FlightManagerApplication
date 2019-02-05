@@ -93,5 +93,21 @@ public class SystemManagerTest {
 		assertFalse(test.isAirlineNameUnique("FlyBH"));
 	}
 	
+	@Test
+	public void shouldCreateAirlineObjectIfAllConditionsAreMet() {
+		assertNotNull(test.createAirline("FlyBH"));
+	}
+	
+	@Test
+	public void shouldFailCreatingAirlineObjectWhenNameVerificationFails() {
+		assertNull(test.createAirline("FlyBH1"));
+	}
+	
+	@Test
+	public void shouldFailCreatingAirlineObjectWhenObjectAlreadyExists() {
+		test.getListOfAirlines().add(new Airline("FlyBH"));
+		assertNull(test.createAirline("FlyBH"));
+	}
+	
 
 }

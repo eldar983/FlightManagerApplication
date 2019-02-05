@@ -22,6 +22,11 @@ public class SystemManager {
 	
 	public Airline createAirline(String name) {
 		// TODO implement
+		if(isAirlineNameUnique(name) && verifyAirlineName(name)) {
+			Airline airline = new Airline(name);
+			listOfAirlines.add(airline);
+			return airline;
+		}else
 		return null;
 	}
 	
