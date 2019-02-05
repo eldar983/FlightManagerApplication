@@ -61,5 +61,37 @@ public class SystemManagerTest {
 		assertNull(test.createAirport("TUZ"));
 	}
 	
+	@Test
+	public void shouldReturnTrueIfAllConditionsAreMetWhenCreatingAirlineName() {
+		assertTrue(test.verifyAirlineName("FlyBH"));
+	}
+	
+	@Test
+	public void shouldReturnFalseIfMoreThan5CharsWhenCreatingAirlineName() {
+		assertFalse(test.verifyAirlineName("Lufthansa"));
+	}
+	
+	@Test
+	public void shouldReturnFalseIfNameContainsNumbersWhenCreatinfAirlineName() {
+		assertFalse(test.verifyAirlineName("Let01"));
+	}
+	
+	@Test
+	public void shouldReturnFalseIfNameIsEmptyWhenCreatingAirlineName() {
+		assertFalse(test.verifyAirlineName(""));
+	}
+	
+	@Test
+	public void shouldReturnTrueIfAirlineNameDoesNotExistsAlreadyWhenCreatingAirline() {
+		test.getListOfAirlines().add(new Airline("ABCDE"));
+		assertTrue(test.isAirlineNameUnique("FGHIJ"));
+	}
+	
+	@Test
+	public void shouldReturnFalseIfAirlineNameAlreadyExistsWhenCreatingAirline() {
+		test.getListOfAirlines().add(new Airline("FlyBH"));
+		assertFalse(test.isAirlineNameUnique("FlyBH"));
+	}
+	
 
 }

@@ -72,6 +72,35 @@ public class SystemManager {
 		return uniqueName;
 	}
 	
+	public boolean verifyAirlineName(String airlineName){
+		boolean validName = false;
+		if(airlineName.length() == 0)
+			return false;
+		for(int i = 0; i < airlineName.length(); i++) {
+			char ch = airlineName.charAt(i);
+			if(Character.isLetter(ch) && airlineName.length() < 6) {
+				validName = true;
+			}else {
+				System.out.println("Ime za Airline mora sadrzavati manje od 6 slova!");
+				return false;
+			}
+		}
+		return validName;
+	}
+	
+	public boolean isAirlineNameUnique(String airlineName) {
+		boolean uniqueAirlineName = true;
+		for(int i = 0; i < listOfAirlines.size(); i++) {
+			if(listOfAirlines.get(i).getName().equals(airlineName)) {
+				System.out.println("Ime koje ste unijeli vec postoji!");
+				uniqueAirlineName = false;
+			}else {
+				uniqueAirlineName = true;
+			}
+		}
+		return uniqueAirlineName;
+	}
+	
 	
 	public ArrayList<Airport> getListOfAirports() {
 		return listOfAirports;
