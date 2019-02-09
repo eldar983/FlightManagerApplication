@@ -14,6 +14,12 @@ public class Seat {
 		
 	}
 	
+	public Seat(String row, Integer seatNumber) {
+		this.row = row;
+		this.seatNumber = seatNumber;
+		this.available = true;
+	}
+	
 	public String getRow() {
 		return row;
 	}

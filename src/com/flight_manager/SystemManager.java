@@ -30,15 +30,8 @@ public class SystemManager {
 		return null;
 	}
 	
-	public Flight createFlight(String airline,String airport, String origin, String destination, Integer id) {
+	public Flight createFlight(String name,String origin, String destination, Integer id) {
 		// TODO implement
-		Flight flight;
-		if(isFlightIdUnique(id) && isAirlineAvailableForFlight(airline) && isAirportAvailableForFlight(airport)) {
-			flight = new Flight(airline, airport, origin, destination, id);
-			listOfFlights.add(flight);
-			return flight;
-		}
-		System.out.println("Flight nije moguce kreirati!");
 		return null;
 	}
 	
@@ -113,44 +106,6 @@ public class SystemManager {
 		return uniqueAirlineName;
 	}
 	
-	public boolean isFlightIdUnique(Integer id) {
-		boolean flightIdUnique = true;
-		for(int i = 0; i < listOfFlights.size(); i++) {
-			if(id == listOfFlights.get(i).getId().intValue()) {
-				System.out.println("Broj leta (flight id) vec postoji!");
-				flightIdUnique = false;
-			}else {
-				flightIdUnique = true;
-			}
-		}
-		return flightIdUnique;
-	}
-	
-	public boolean isAirlineAvailableForFlight(String airlineName) {
-		boolean isAirlineAvailable = false;
-		for(int i = 0; i < listOfAirlines.size(); i++) {
-			if(listOfAirlines.get(i).getName().equals(airlineName)) {
-				isAirlineAvailable = true;
-			}else {
-				System.out.println("Airline koji ste unijeli ne postoji!");
-				return false;
-			}
-		}
-		return isAirlineAvailable;
-	}
-	
-	public boolean isAirportAvailableForFlight(String airportName) {
-		boolean isAirportAvailable = false;
-		for(int i = 0; i < listOfAirports.size(); i++) {
-			if(listOfAirports.get(i).getName().equals(airportName)) {
-				isAirportAvailable = true;
-			}else {
-				System.out.println("Airport koji ste unijeli ne postoji!");
-				return false;
-			}
-		}
-		return isAirportAvailable;
-	}
 	
 	public ArrayList<Airport> getListOfAirports() {
 		return listOfAirports;
