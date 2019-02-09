@@ -30,25 +30,119 @@ public class SystemManager {
 		return null;
 	}
 	
-	public Flight createFlight(String name,String origin, String destination, Integer id) {
-		// TODO implement
+	public Flight createFlight(String airline, String airport, String origin, String destination, Integer id) {
+		Flight flight = new Flight();
+		if(isAirlineAvailableForFlight(airline) && isAirportAvailableForFlight(airport) && isFlightIdUnique(id)) {
+			flight = new Flight(airline,airport, origin, destination, id);
+			listOfFlights.add(flight);
+			flight.setSeats(createSeats(id, 20));
+			System.out.println("Success");
+
+
+			return flight;
+		}else {
+			System.out.println("Nije moguce kreirati flight!");
 		return null;
+		}
 	}
 	
-	public void createSeats(String airline,Integer flightID, Integer numberOfSeatsPerRow) {
-		// TODO implement
+	public boolean isFlightIdUnique(Integer id) {
+		boolean flightIdUnique = true;
+		for(int i = 0; i < listOfFlights.size(); i++) {
+			if(id == listOfFlights.get(i).getId().intValue()) {
+				System.out.println("Broj leta (flight ID) vec postoji!");
+				flightIdUnique = false;
+			}else {
+				flightIdUnique = true;
+				
+			}
+
+		}
+		return flightIdUnique;
+	}
+	
+	public boolean isAirlineAvailableForFlight(String airlineName) {
+		boolean isAirlineAvailable = false;
+		for(int i = 0; i < listOfAirlines.size(); i++) {
+			if(listOfAirlines.get(i).getName().equals(airlineName)){
+				isAirlineAvailable = true;
+				}else {
+					System.out.println("Airline koji ste unijeli ne postoji!");
+					return false;
+				}
+			}
+		return isAirlineAvailable;
+	}
+	
+	public boolean isAirportAvailableForFlight(String airportName) {
+		boolean isAirportAvailable = false;
+		for(int i = 0; i < listOfAirports.size(); i++) {
+			if(listOfAirports.get(i).getName().equals(airportName)) {
+				isAirportAvailable = true;
+			}else {
+				System.out.println("Airport koji ste unijeli ne postoji!");
+				return false;
+			}
+		}
+		return isAirportAvailable;
+	}
+	
+	public ArrayList<Seat> createSeats(Integer flightID, Integer numberOfSeatsPerRow) {
+		ArrayList<Seat> listOfSeats = new ArrayList<>();
+		if(isFlightIdValidToCreateSeats(flightID)) {
+			char row=64;
+			for(int i=0; i<6; i++) {
+				row++;
+				for(int j=1; j<=numberOfSeatsPerRow; j++)
+					listOfSeats.add(new Seat("" + row, j));
+			}
+		}
+		return listOfSeats;
+	}
+	
+	public boolean isFlightIdValidToCreateSeats(Integer id) {
+		boolean flightIdValid = false;
+		for(int i = 0; i < listOfFlights.size(); i++) {
+			if(id == listOfFlights.get(i).getId().intValue()) {
+				flightIdValid = true;
+			}else {
+				System.out.println("Broj leta (flight ID) nevazeci!");
+				return false;
+			}
+		}
+		return flightIdValid;
 	}
 	
 	public List<Flight> findAvailableFlights(String origin, String destination){
-		// TODO implement
-		return null;
+		ArrayList<Flight> availableFlights = new ArrayList<Flight>();
+		for(int i = 0; i < listOfFlights.size(); i++) {
+			if(listOfFlights.get(i).getOrigin().equals(origin) && listOfFlights.get(i).getDestination().equals(destination) && listOfFlights.get(i).getSeats().get(i).isAvailable()) {
+				availableFlights.add(listOfFlights.get(i));
+			}
+			System.out.println("No flights available!");
+		}
+		return availableFlights;
 	}
 	
-	public boolean bookSeat(String airline, String flightName,int seatNumber,String row) {
-		// TODO implement
-		
+	public boolean bookSeat(Integer flightID, int seatNumber, String row) {
+		for (int i = 0; i < listOfFlights.size(); i++) {
+		    if (listOfFlights.get(i).getId().intValue() == flightID) {
+			for (int j = 0; j <listOfFlights.get(i).getSeats().size(); j++) {
+			    if (seatNumber == listOfFlights.get(i).getSeats().get(j).getSeatNumber().intValue()
+				    && row.equals(listOfFlights.get(i).getSeats().get(j).getRow())) {
+				if (listOfFlights.get(i).getSeats().get(j).isAvailable()) {
+				    listOfFlights.get(i).getSeats().get(j).setAvailable(false);
+				    return true;
+				} else {
+				    System.out.println("Seat already booked");
+				}
+			    }
+			}
+		    }
+		}		
 		return false;
 	}
+	
 	
 	public boolean verifyAirportName(String name) {
 		boolean validName = false;
