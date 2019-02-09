@@ -106,6 +106,44 @@ public class SystemManager {
 		return uniqueAirlineName;
 	}
 	
+	public boolean isFlightIdUnique(Integer id) {
+		boolean flightIdUnique = true;
+		for(int i = 0; i < listOfFlights.size(); i++) {
+			if(id == listOfFlights.get(i).getId().intValue()) {
+				System.out.println("Broj leta (flight id) vec postoji!");
+				flightIdUnique = false;
+			}else {
+				flightIdUnique = true;
+			}
+		}
+		return flightIdUnique;
+	}
+	
+	public boolean isAirlineAvailableForFlight(String airlineName) {
+		boolean isAirlineAvailable = false;
+		for(int i = 0; i < listOfAirlines.size(); i++) {
+			if(listOfAirlines.get(i).getName().equals(airlineName)) {
+				isAirlineAvailable = true;
+			}else {
+				System.out.println("Airline koji ste unijeli ne postoji!");
+				return false;
+			}
+		}
+		return isAirlineAvailable;
+	}
+	
+	public boolean isAirportAvailableForFlight(String airportName) {
+		boolean isAirportAvailable = false;
+		for(int i = 0; i < listOfAirports.size(); i++) {
+			if(listOfAirports.get(i).getName().equals(airportName)) {
+				isAirportAvailable = true;
+			}else {
+				System.out.println("Airport koji ste unijeli ne postoji!");
+				return false;
+			}
+		}
+		return isAirportAvailable;
+	}
 	
 	public ArrayList<Airport> getListOfAirports() {
 		return listOfAirports;

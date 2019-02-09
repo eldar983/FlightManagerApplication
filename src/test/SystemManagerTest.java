@@ -109,5 +109,41 @@ public class SystemManagerTest {
 		assertNull(test.createAirline("FlyBH"));
 	}
 	
+	@Test
+	public void shouldReturnTrueIfFlightIdIsUniqueWhenCreatingFlight() {
+		test.getListOfFlights().add(new Flight("Wizz", "Tuz", "Tuzla", "Dubai", 22));
+		assertTrue(test.isFlightIdUnique(10));
+	}
+	
+	@Test
+	public void shouldReturnFalseIfFlightIdAlreadyExistsWhenCreatingFlight() {
+		test.getListOfFlights().add(new Flight("Wizz", "Tuz", "Tuzla", "Dubai", 22));
+		assertFalse(test.isFlightIdUnique(22));
+	}
+	
+	@Test
+	public void shouldReturnTrueIfAirlineIsAvailableWhenCreatingFlight() {
+		test.getListOfAirlines().add(new Airline("Wizz"));
+		assertTrue(test.isAirlineAvailableForFlight("Wizz"));
+	}
+	
+	@Test
+	public void shouldReturnFalseIfAirlineIsNotAvailableWhenCreatingFlight() {
+		test.getListOfAirlines().add(new Airline("Wizz"));
+		assertFalse(test.isAirlineAvailableForFlight("Bizz"));
+	}
+	
+	@Test
+	public void shouldReturnTrueIfAirportIsAvailableWhenCreatingFlight() {
+		test.getListOfAirports().add(new Airport("ABC"));
+		assertTrue(test.isAirportAvailableForFlight("ABC"));
+	}
+	
+	@Test
+	public void shouldReturnFalseIfAirportIsNotAvailableWhenCreatingFlight() {
+		test.getListOfAirports().add(new Airport("ABC"));
+		assertFalse(test.isAirportAvailableForFlight("DEF"));
+	}
+	
 
 }
