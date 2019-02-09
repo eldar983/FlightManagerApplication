@@ -30,8 +30,15 @@ public class SystemManager {
 		return null;
 	}
 	
-	public Flight createFlight(String name,String origin, String destination, Integer id) {
+	public Flight createFlight(String airline,String airport, String origin, String destination, Integer id) {
 		// TODO implement
+		Flight flight;
+		if(isFlightIdUnique(id) && isAirlineAvailableForFlight(airline) && isAirportAvailableForFlight(airport)) {
+			flight = new Flight(airline, airport, origin, destination, id);
+			listOfFlights.add(flight);
+			return flight;
+		}
+		System.out.println("Flight nije moguce kreirati!");
 		return null;
 	}
 	

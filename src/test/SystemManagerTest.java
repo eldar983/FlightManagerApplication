@@ -145,5 +145,36 @@ public class SystemManagerTest {
 		assertFalse(test.isAirportAvailableForFlight("DEF"));
 	}
 	
+	@Test
+	public void shouldCreateFlightObjectIfAllConditionsAreMet() {
+		test.getListOfAirlines().add(new Airline("Wizz"));
+		test.getListOfAirports().add(new Airport("ABC"));
+		assertNotNull(test.createFlight("Wizz", "ABC", "Tuzla", "Dubai", 50));
+	}
+	
+	@Test
+	public void shouldNotCreateFlightObjectIfAirlineNameIsNotCorrect() {
+		test.getListOfAirlines().add(new Airline("Wizz"));
+		test.getListOfAirports().add(new Airport("ABC"));
+		assertNull(test.createFlight("Bizz", "ABC", "Tuzla", "Dubai", 50));
+	}
+	
+	@Test
+	public void shouldNotCreateFlightObjectIfAirportNameIsNotCorrect() {
+		test.getListOfAirlines().add(new Airline("Wizz"));
+		test.getListOfAirports().add(new Airport("ABC"));
+		assertNull(test.createFlight("Wizz", "DEF", "Tuzla", "Dubai", 50));
+	}
+	
+	@Test
+	public void shouldNotCreateFlightObjectIfFlightIdIsDuplicate() {
+		test.getListOfAirlines().add(new Airline("Wizz"));
+		test.getListOfAirports().add(new Airport("ABC"));
+		test.createFlight("Wizz", "ABC", "Tuzla", "Dubai", 50);
+		test.getListOfAirlines().add(new Airline("Bizz"));
+		test.getListOfAirports().add(new Airport("DEF"));
+		assertNull(test.createFlight("Bizz", "DEF", "Tuzla", "Dubai", 50));
+	}
+	
 
 }
